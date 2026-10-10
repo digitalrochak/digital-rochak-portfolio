@@ -205,6 +205,17 @@ function initModals() {
 /* ==========================================
    6. Contact Form & Toast Feedback
    ========================================== */
+function sanitizeInput(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+}
+
 function initContactForm() {
   const contactForm = document.getElementById('contactForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -212,6 +223,14 @@ function initContactForm() {
   if (!contactForm) return;
 
   contactForm.addEventListener('submit', async (e) => {
+    // Anti-Spam Bot Security Honeypot Check
+    const honeyField = contactForm.querySelector('input[name="_honey"]');
+    if (honeyField && honeyField.value.trim() !== '') {
+      console.warn('[Security] Automated spam bot submission blocked by honeypot.');
+      e.preventDefault();
+      return false;
+    }
+
     // If browsing locally as a file (file://), allow native POST submission directly to FormSubmit
     if (window.location.protocol === 'file:') {
       if (submitBtn) {
@@ -224,9 +243,9 @@ function initContactForm() {
     // If hosted on a web server (http:// or https://), handle via AJAX
     e.preventDefault();
 
-    const name = document.getElementById('formName').value.trim();
-    const email = document.getElementById('formEmail').value.trim();
-    const message = document.getElementById('formMessage').value.trim();
+    const name = sanitizeInput(document.getElementById('formName').value.trim());
+    const email = sanitizeInput(document.getElementById('formEmail').value.trim());
+    const message = sanitizeInput(document.getElementById('formMessage').value.trim());
 
     if (!name || !email || !message) {
       showToast('Please complete all required fields.', 'error');

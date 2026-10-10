@@ -416,14 +416,6 @@ section {
   height: 8px;
   border-radius: 50%;
   background: var(--accent-green);
-  box-shadow: 0 0 10px var(--accent-green);
-  animation: pulse-dot 2s infinite;
-}
-
-@keyframes pulse-dot {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
 .hero-title {
@@ -477,40 +469,39 @@ section {
   position: relative;
   width: 380px;
   height: 380px;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-purple));
-  padding: 5px;
-  animation: morph-frame 8s ease-in-out infinite alternate;
-  box-shadow: var(--shadow-glow-cyan);
-}
-
-@keyframes morph-frame {
-  0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-  50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  100% { border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%; }
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  padding: 6px;
+  box-shadow: var(--shadow-card);
 }
 
 .hero-avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: inherit;
+  border-radius: calc(var(--radius-lg) - 4px);
 }
 
-/* Floating Marketing Floating Chips */
+/* Static Marketing Badges */
 .floating-chip {
   position: absolute;
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.92);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   gap: 0.75rem;
   box-shadow: var(--shadow-card);
-  animation: float-chip 4s ease-in-out infinite alternate;
   z-index: 10;
+  transition: var(--transition-fast);
+}
+
+.floating-chip:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-cyan);
 }
 
 .floating-chip i {
@@ -519,21 +510,18 @@ section {
 }
 
 .floating-chip-1 {
-  top: 10%;
-  left: -10%;
-  animation-delay: 0s;
+  top: 8%;
+  left: -8%;
 }
 
 .floating-chip-2 {
-  bottom: 12%;
-  right: -8%;
-  animation-delay: 2s;
+  bottom: 10%;
+  right: -6%;
 }
 
 .floating-chip-3 {
-  bottom: -5%;
+  bottom: -6%;
   left: 5%;
-  animation-delay: 1s;
 }
 
 .chip-text h5 {

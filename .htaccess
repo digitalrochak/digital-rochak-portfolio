@@ -1,0 +1,43 @@
+# ==============================================================================
+# Digital Rochak Website - Production Security Configuration (.htaccess)
+# ==============================================================================
+
+# 1. Force HTTPS & Secure Redirects
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# 2. Disable Directory Browsing (Prevents hackers from viewing folder structures)
+Options -Indexes
+
+# 3. Block Access to Sensitive & Hidden Files
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# 4. HTTP Security Headers
+<IfModule mod_headers.c>
+  # Protect against Clickjacking attacks
+  Header always set X-Frame-Options "DENY"
+
+  # Protect against MIME type sniffing exploits
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Protect against Cross-Site Scripting (XSS)
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # Enforce Strict Transport Security (HSTS) - Force HTTPS for 1 Year
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Secure Referrer Policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions Policy - Disable unused browser hardware APIs
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Content Security Policy (CSP)
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://formsubmit.co;"
+</IfModule>
