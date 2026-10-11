@@ -483,7 +483,7 @@ section {
   border-radius: calc(var(--radius-lg) - 4px);
 }
 
-/* Interactive Hero Highlights List */
+/* Single-Line Boxed Hero Highlights Cards */
 .hero-highlights-list {
   display: flex;
   flex-direction: column;
@@ -491,25 +491,27 @@ section {
   margin-bottom: 2rem;
 }
 
-.hero-highlight-item {
+.hero-highlight-box {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(15, 23, 42, 0.75);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  max-width: 500px;
+  width: 100%;
+  max-width: 540px;
   text-decoration: none;
   color: var(--text-main);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
 
-.hero-highlight-item::before {
+.hero-highlight-box::before {
   content: '';
   position: absolute;
   top: 0;
@@ -521,55 +523,68 @@ section {
   transition: opacity 0.3s ease;
 }
 
-.hero-highlight-item:hover {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(56, 189, 248, 0.35);
-  transform: translateX(8px);
-  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
+.hero-highlight-box:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateX(6px);
+  box-shadow: 0 8px 25px rgba(56, 189, 248, 0.22);
 }
 
-.hero-highlight-item:hover::before {
+.hero-highlight-box:hover::before {
   opacity: 1;
 }
 
 .hero-highlight-icon {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
   background: rgba(56, 189, 248, 0.1);
   border: 1px solid rgba(56, 189, 248, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--primary-cyan);
   flex-shrink: 0;
   transition: var(--transition-fast);
 }
 
-.hero-highlight-item:hover .hero-highlight-icon {
+.hero-highlight-box:hover .hero-highlight-icon {
   background: var(--primary-cyan);
   color: #000;
   box-shadow: 0 0 15px var(--primary-cyan);
   transform: scale(1.05);
 }
 
-.hero-highlight-text {
+.hero-highlight-inline-text {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hero-highlight-text strong {
-  display: block;
-  font-size: 1rem;
+.hero-highlight-inline-text strong {
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-main);
-  line-height: 1.2;
-  margin-bottom: 0.15rem;
+  white-space: nowrap;
 }
 
-.hero-highlight-text span {
-  font-size: 0.82rem;
+.dot-separator {
+  color: var(--primary-cyan);
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.hero-highlight-inline-text span:not(.dot-separator) {
+  font-size: 0.85rem;
   color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-highlight-action {
@@ -582,11 +597,12 @@ section {
   justify-content: center;
   color: var(--text-muted);
   font-size: 0.85rem;
+  flex-shrink: 0;
   opacity: 0.6;
   transition: var(--transition-fast);
 }
 
-.hero-highlight-item:hover .hero-highlight-action {
+.hero-highlight-box:hover .hero-highlight-action {
   opacity: 1;
   background: rgba(56, 189, 248, 0.2);
   color: var(--primary-cyan);
