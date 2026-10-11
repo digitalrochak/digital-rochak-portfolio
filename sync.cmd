@@ -1,11 +1,12 @@
 @echo off
 echo ================================================
-echo Digital Rochak Website - Sync to GitHub
+echo Digital Rochak Website - GitHub Automatic Sync
 echo ================================================
 cd /d "C:\Users\rocha\OneDrive\Documents\Digital Rochak Website"
 git add .
-git commit -m "Auto-update website code"
-git push -u origin main
+git commit -m "Automatic portfolio website update"
+git push origin main
 echo ================================================
-echo Sync Complete!
+echo GitHub Repository Sync Complete!
+echo ================================================
 pause
