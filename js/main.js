@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initContactForm();
   initBackToTop();
+  initCounters();
 });
 
 /* ==========================================
@@ -332,4 +333,45 @@ function initBackToTop() {
       behavior: 'smooth'
     });
   });
+}
+
+/* ==========================================
+   8. Number Counting Animation
+   ========================================== */
+function initCounters() {
+  const counters = document.querySelectorAll('.counter');
+  if (!counters.length) return;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.getAttribute('data-target'), 10) || 0;
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const duration = 1500; // milliseconds
+        const startTime = performance.now();
+
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic for a smooth deceleration effect
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(easeOut * target);
+
+          counter.textContent = currentVal + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.textContent = target + suffix;
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+        obs.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(counter => observer.observe(counter));
 }
