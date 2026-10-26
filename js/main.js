@@ -129,8 +129,14 @@ function initRoiCalculator() {
   const estReach = document.getElementById('estReach');
   const estLeads = document.getElementById('estLeads');
   const estRoas = document.getElementById('estRoas');
+  const presetChips = document.querySelectorAll('.roi-chip');
 
   if (!budgetSlider) return;
+
+  function updateSliderBackground(val, min, max) {
+    const percentage = ((val - min) / (max - min)) * 100;
+    budgetSlider.style.background = `linear-gradient(to right, var(--primary-cyan) 0%, var(--primary-cyan) ${percentage}%, rgba(255, 255, 255, 0.12) ${percentage}%, rgba(255, 255, 255, 0.12) 100%)`;
+  }
 
   function calculateResults(budget) {
     // Dynamic marketing calculation heuristics
@@ -143,10 +149,32 @@ function initRoiCalculator() {
     estReach.textContent = `~${reach.toLocaleString()} Impressions`;
     estLeads.textContent = `${minLeads} - ${maxLeads} High Quality Leads`;
     estRoas.textContent = estimatedRoasMultiplier;
+
+    updateSliderBackground(budget, budgetSlider.min, budgetSlider.max);
+
+    // Sync active state on preset chips
+    presetChips.forEach(chip => {
+      const chipVal = Number(chip.getAttribute('data-budget'));
+      if (chipVal === Number(budget)) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
+      }
+    });
   }
 
   budgetSlider.addEventListener('input', (e) => {
     calculateResults(e.target.value);
+  });
+
+  // Touch and click handlers for mobile preset chips
+  presetChips.forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      const val = chip.getAttribute('data-budget');
+      budgetSlider.value = val;
+      calculateResults(val);
+    });
   });
 
   // Initial calculation trigger

@@ -422,7 +422,19 @@
                 <label for="adBudgetSlider">Monthly Ad Budget</label>
                 <span id="budgetDisplay" class="roi-slider-value">$1,000</span>
               </div>
-              <input type="range" id="adBudgetSlider" class="custom-range-slider" min="200" max="10000" step="100" value="1000">
+              <input type="range" id="adBudgetSlider" class="custom-range-slider" min="200" max="10000" step="100" value="1000" aria-label="Monthly Ad Budget Slider">
+              <div class="roi-slider-scale">
+                <span>$200</span>
+                <span>$5,000</span>
+                <span>$10,000</span>
+              </div>
+              <!-- Mobile-friendly Quick Budget Presets -->
+              <div class="roi-preset-chips" aria-label="Quick Budget Selectors">
+                <button type="button" class="roi-chip" data-budget="500">$500</button>
+                <button type="button" class="roi-chip active" data-budget="1000">$1,000</button>
+                <button type="button" class="roi-chip" data-budget="2500">$2,500</button>
+                <button type="button" class="roi-chip" data-budget="5000">$5,000</button>
+              </div>
             </div>
           </div>
 

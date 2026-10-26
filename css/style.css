@@ -824,76 +824,139 @@ section {
 
 /* --- Interactive Ad ROI Estimator Widget --- */
 .roi-calculator-wrapper {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
   border: 1px solid var(--glass-border-hover);
   border-radius: var(--radius-lg);
-  padding: 3rem 2rem;
+  padding: 3rem 2.25rem;
   margin-top: 4rem;
   box-shadow: var(--shadow-glow-indigo);
 }
 
 .roi-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 3rem;
   align-items: center;
 }
 
 .roi-slider-group {
-  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .roi-slider-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .roi-slider-header label {
   font-weight: 600;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
 .roi-slider-value {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--primary-cyan);
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
 }
 
 .custom-range-slider {
   width: 100%;
-  height: 8px;
+  height: 10px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
+  touch-action: pan-x;
+  margin: 0.5rem 0;
 }
 
 .custom-range-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: var(--primary-cyan);
-  box-shadow: 0 0 15px var(--primary-cyan);
-  cursor: pointer;
-  transition: transform 0.1s ease;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-indigo));
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.6);
+  border: 3px solid #ffffff;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.custom-range-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+.custom-range-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.85);
+}
+
+.custom-range-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-indigo));
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.6);
+  border: 3px solid #ffffff;
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.roi-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  padding: 0 2px;
+}
+
+/* Touch-friendly Quick Budget Presets */
+.roi-preset-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.roi-chip {
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.roi-chip:hover,
+.roi-chip.active {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--primary-cyan);
+  color: var(--primary-cyan);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  transform: translateY(-2px);
 }
 
 .roi-result-card {
-  background: rgba(7, 10, 18, 0.75);
+  background: rgba(7, 10, 18, 0.85);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
-  padding: 2rem;
+  padding: 2.25rem 2rem;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .roi-result-grid {
@@ -904,16 +967,18 @@ section {
 }
 
 .roi-result-item h5 {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: 0.4rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
 }
 
 .roi-result-item .value {
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--accent-green);
+  line-height: 1.2;
 }
 
 /* --- Why Work With Me Section --- */
@@ -1420,4 +1485,107 @@ textarea.form-control {
     gap: 1rem;
     text-align: center;
   }
+
+  /* Mobile Interactive Tools UX Enhancements */
+  .roi-calculator-wrapper {
+    padding: 2rem 1.25rem;
+    margin-top: 2.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .roi-grid {
+    gap: 2rem;
+  }
+
+  .roi-slider-header label {
+    font-size: 0.92rem;
+  }
+
+  .roi-slider-value {
+    font-size: 1.45rem;
+  }
+
+  .custom-range-slider {
+    height: 12px;
+  }
+
+  .custom-range-slider::-webkit-slider-thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .custom-range-slider::-moz-range-thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .roi-preset-chips {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .roi-chip {
+    padding: 0.5rem 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .roi-result-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .roi-result-grid {
+    gap: 1rem;
+  }
+
+  .roi-result-item h5 {
+    font-size: 0.75rem;
+  }
+
+  .roi-result-item .value {
+    font-size: 1.45rem;
+  }
+
+  .portfolio-filter-nav {
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .portfolio-filter-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
 }
+
+@media (max-width: 480px) {
+  .roi-calculator-wrapper {
+    padding: 1.5rem 1rem;
+  }
+
+  .roi-result-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .roi-preset-chips {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roi-slider-value {
+    font-size: 1.35rem;
+  }
+}
+
